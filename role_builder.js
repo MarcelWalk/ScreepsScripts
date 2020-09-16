@@ -1,4 +1,4 @@
-var roleUpgrader = {
+var roleBuilder = {
     run: function (creep) {
 
         if(creep.carry.energy == creep.carryCapacity){
@@ -12,14 +12,15 @@ var roleUpgrader = {
         if (!creep.memory.full) {
             var sources = creep.room.find(FIND_SOURCES);
             if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffffff'}});
+                creep.moveTo(sources[0]);
             }
         } else {
-            if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#ffffff'}});
+           var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+           if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
+            	creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
     }
 };
 
-module.exports = roleUpgrader;
+module.exports = roleBuilder;
